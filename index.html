@@ -31,13 +31,13 @@
 
         @keyframes text-pulse {
             0% {
-                text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
+                text-shadow: 0 0 1px #0f0, 0 0 2px #0f0, 0 0 3px #0f0;
             }
             50% {
-                text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+                text-shadow: 0 0 4px #0f0, 0 0 8px #0f0, 0 0 12px #0f0;
             }
             100% {
-                text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
+                text-shadow: 0 0 1px #0f0, 0 0 2px #0f0, 0 0 3px #0f0;
             }
         }
         
@@ -104,6 +104,16 @@
             animation: sound-wave 2s infinite ease-out;
             transform-origin: center;
         }
+
+        @keyframes snake-move {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .snake-path {
+            stroke-dasharray: 100;
+            animation: snake-move 4s linear infinite;
+        }
     </style>
 </head>
 <body class="text-gray-200">
@@ -126,7 +136,21 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                 
-                <!-- Project Card 1: Voice to Speech -->
+                <!-- Project Card 1: Snake Game -->
+                <div class="card p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <svg class="svg-animation" viewBox="0 0 100 100">
+                        <path d="M10 50 Q30 20, 50 50 T90 50" fill="none" stroke="#10b981" stroke-width="5" class="snake-path" />
+                    </svg>
+                    <h3 class="text-2xl font-semibold text-gray-100">Classic Snake Game</h3>
+                    <p class="mt-4 text-gray-400 text-lg">
+                        A retro-style game built entirely with HTML5 and JavaScript. It showcases fundamental game development logic, including canvas rendering and user input handling.
+                    </p>
+                    <a href="snake.html" class="mt-6 inline-block w-full text-center py-3 px-6 rounded-lg font-semibold code-link">
+                        View Project
+                    </a>
+                </div>
+
+                <!-- Project Card 2: Voice to Speech -->
                 <div class="card p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                     <svg class="svg-animation" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="10" fill="#10b981"></circle>
@@ -143,7 +167,7 @@
                     </a>
                 </div>
 
-                <!-- Project Card 2: FinTech Trend Analysis -->
+                <!-- Project Card 3: FinTech Trend Analysis -->
                 <div class="card p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                     <svg class="svg-animation" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <rect x="10" y="50" width="20" height="50" fill="#10b981" class="pulse-bar" style="animation-delay: 0s;"></rect>
@@ -159,7 +183,7 @@
                     </a>
                 </div>
 
-                <!-- Project Card 3: Data Modeling & Analytics -->
+                <!-- Project Card 4: Data Modeling & Analytics -->
                 <div class="card p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                     <svg class="svg-animation" viewBox="0 0 100 100">
                         <g fill="#10b981" class="data-stream">
@@ -179,25 +203,8 @@
                         View Project
                     </a>
                 </div>
-
-                <!-- Project Card 4: Financial Tool -->
-                <div class="card p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                    <svg class="svg-animation" viewBox="0 0 100 100">
-                        <path d="M50 10 L80 40 L80 80 L50 100 L20 80 L20 40 Z" stroke="#10b981" stroke-width="2" fill="none" class="spinner-path"></path>
-                    </svg>
-                    <h3 class="text-2xl font-semibold text-gray-100">Financial Tool</h3>
-                    <p class="mt-4 text-gray-400 text-lg">
-                        A simple, yet powerful web-based tool designed to help users calculate and understand key financial metrics.
-                    </p>
-                    <a href="#" class="mt-6 inline-block w-full text-center py-3 px-6 rounded-lg font-semibold code-link">
-                        View Tool
-                    </a>
-                </div>
-                
             </div>
-            
         </section>
-
     </main>
 
     <script>
