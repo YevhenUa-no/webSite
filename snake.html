@@ -121,7 +121,6 @@
 <body>
     <div class="music-controls">
         <button class="music-button" onclick="toggleMusic()">🎵 Music</button>
-        <button class="music-button" onclick="changeSong()">⏭️ Next</button>
     </div>
 
     <div class="text-center mb-6">
@@ -164,51 +163,18 @@
         let touchStartX = 0;
         let touchStartY = 0;
         let musicEnabled = true;
-        let currentSongIndex = 0;
         
         // Audio components
         let pointSynth, buzzSynth, mainSynth;
         let mainLoop;
 
-        // Enhanced 8-bit song collection
-        const songs = [
-            {
-                name: "Super Mario Bros",
-                notes: ["E5", "E5", null, "E5", null, "C5", "E5", null, "G5", null, null, null, "G4"],
-                durations: ["8n", "8n", "8n", "8n", "8n", "8n", "4n", "8n", "4n", "4n", "4n", "4n", "4n"],
-                tempo: 140
-            },
-            {
-                name: "Tetris Theme",
-                notes: ["E5", "B4", "C5", "D5", "C5", "B4", "A4", "A4", "C5", "E5", "D5", "C5", "B4"],
-                durations: ["4n", "8n", "8n", "4n", "8n", "8n", "4n", "8n", "8n", "4n", "8n", "8n", "2n"],
-                tempo: 120
-            },
-            {
-                name: "Pac-Man",
-                notes: ["B4", "B5", "F#5", "D#5", "B5", "F#5", "D#5", "C5", "C6", "G5", "E5", "C6", "G5", "E5"],
-                durations: ["8n", "8n", "8n", "8n", "4n", "8n", "8n", "8n", "8n", "8n", "8n", "4n", "8n", "8n"],
-                tempo: 160
-            },
-            {
-                name: "Zelda Theme",
-                notes: ["A#4", "F5", "A#4", "A#4", "C5", "D5", "D#5", null, "F5", null, "F5", "F5", "F#5", "G#5"],
-                durations: ["4n", "4n", "8n", "8n", "8n", "8n", "4n", "8n", "4n", "8n", "8n", "8n", "8n", "4n"],
-                tempo: 110
-            },
-            {
-                name: "Mega Man",
-                notes: ["D5", "D5", "D5", "A#4", null, "D5", "A5", "G5", "F5", "D5", "F5", "G5"],
-                durations: ["8n", "8n", "4n", "4n", "8n", "4n", "4n", "4n", "4n", "4n", "4n", "2n"],
-                tempo: 150
-            },
-            {
-                name: "Street Fighter",
-                notes: ["E4", "G4", "A4", "C5", "A4", "G4", "E4", "G4", "A4", "E5", "D5", "C5"],
-                durations: ["8n", "8n", "8n", "4n", "8n", "8n", "8n", "8n", "8n", "4n", "4n", "2n"],
-                tempo: 130
-            }
-        ];
+        // Single 8-bit song
+        const song = {
+            name: "Tetris Theme",
+            notes: ["E5", "B4", "C5", "D5", "C5", "B4", "A4", "A4", "C5", "E5", "D5", "C5", "B4"],
+            durations: ["4n", "8n", "8n", "4n", "8n", "8n", "4n", "8n", "8n", "4n", "8n", "8n", "2n"],
+            tempo: 120
+        };
 
         highScoreElement.textContent = highScore;
 
@@ -271,7 +237,6 @@
             
             if (mainLoop) mainLoop.dispose();
             
-            const song = songs[currentSongIndex];
             Tone.Transport.bpm.value = song.tempo;
             
             mainLoop = new Tone.Sequence((time, note) => {
@@ -290,13 +255,6 @@
                 playCurrentSong();
             } else {
                 if (mainLoop) mainLoop.dispose();
-            }
-        }
-
-        function changeSong() {
-            currentSongIndex = (currentSongIndex + 1) % songs.length;
-            if (musicEnabled && !isGameOver) {
-                playCurrentSong();
             }
         }
         
@@ -470,10 +428,8 @@
             Tone.Transport.stop();
             if (mainLoop) mainLoop.dispose();
             
-            // Epic game over sound sequence
-            buzzSynth.triggerAttackRelease("C2", "4n");
-            setTimeout(() => buzzSynth.triggerAttackRelease("G1", "4n"), 200);
-            setTimeout(() => buzzSynth.triggerAttackRelease("D1", "2n"), 400);
+            // Play a single, low buzz sound
+            buzzSynth.triggerAttackRelease("C2", "1n");
         }
 
         // Handle keyboard input
@@ -545,3 +501,4 @@
     </script>
 </body>
 </html>
+
