@@ -138,17 +138,20 @@
         }
 
         #controls-container {
-            display: none; /* Hide by default for desktop */
+            display: none;
         }
 
         @media (max-width: 768px) {
             #controls-container {
-                display: flex; /* Change to flexbox for a single row */
+                display: block; /* Use block to position sections vertically */
+            }
+            .controls-row {
+                display: flex; /* Use flexbox for horizontal rows */
                 justify-content: center;
                 gap: 1rem;
+                margin-bottom: 0.5rem;
             }
         }
-
     </style>
 </head>
 <body>
@@ -174,10 +177,14 @@
     <button id="start-button">START GAME</button>
     
     <div id="controls-container" class="mt-8">
-        <button class="control-button" data-direction="up">▲</button>
-        <button class="control-button" data-direction="down">▼</button>
-        <button class="control-button" data-direction="left">◀</button>
-        <button class="control-button" data-direction="right">▶</button>
+        <div class="controls-row">
+            <button class="control-button" data-direction="up">▲</button>
+        </div>
+        <div class="controls-row">
+            <button class="control-button" data-direction="left">◀</button>
+            <button class="control-button" data-direction="down">▼</button>
+            <button class="control-button" data-direction="right">▶</button>
+        </div>
     </div>
 
 
@@ -220,6 +227,7 @@
         highScoreElement.textContent = highScore;
 
         function setupAudio() {
+            // This function is now only called after a user interaction
             if (Tone.context.state !== 'running') {
                 Tone.start();
             }
@@ -290,12 +298,18 @@
         function toggleMusic() {
             musicEnabled = !musicEnabled;
             if (musicEnabled) {
+                // If music is enabled, we start Tone and the loop
+                if (Tone.context.state === 'suspended') {
+                    Tone.start();
+                }
                 if (Tone.Transport.state === 'stopped') {
                     Tone.Transport.start();
                 }
                 playCurrentSong();
             } else {
+                // If music is disabled, we dispose of the loop and stop the transport
                 if (mainLoop) mainLoop.dispose();
+                Tone.Transport.stop();
             }
         }
 
@@ -334,7 +348,7 @@
             if (gameLoop) clearInterval(gameLoop);
             gameLoop = setInterval(gameTick, 120);
 
-            // Start the audio
+            // This is the key change for iOS: audio is now set up after the user clicks "Start Game"
             setupAudio();
             if (musicEnabled) {
                 Tone.Transport.start();
