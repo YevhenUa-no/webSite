@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,3 +11,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+<body>
+    <div class="music-controls">
+        <button class="music-button" onclick="toggleMusic()">🎵 Music</button>
+    </div>
+
+    <div class="text-center mb-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold title">RETRO SNAKE</h1>
+        <p class="text-sm text-gray-400 mt-2">Classic arcade gaming with 8-bit beats!</p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <div class="game-info">
+        Score: <span id="score">0</span> | High Score: <span id="highScore">0</span>
+    </div>
+    <div class="controls-info">
+        Use arrow keys or swipe to control • Collect red food to grow
+    </div>
+    <div id="game-over-message">
+        <div>GAME OVER!</div>
+        <div style="font-size: 1.2rem; margin-top: 10px;">Final Score: <span id="finalScore">0</span></div>
+    </div>
+    <button id="start-button">START GAME</button>
+    
+    <div id="controls-container" class="mt-8">
+        <div class="controls-row">
+            <button class="control-button" data-direction="up">▲</button>
+        </div>
+        <div class="controls-row">
+            <button class="control-button" data-direction="left">◀</button>
+            <button class="control-button" data-direction="down">▼</button>
+            <button class="control-button" data-direction="right">▶</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
